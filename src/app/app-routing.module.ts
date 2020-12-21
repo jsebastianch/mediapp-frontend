@@ -18,6 +18,7 @@ import { PacienteEdicionComponent } from './pages/paciente/paciente-edicion/paci
 import { PacienteComponent } from './pages/paciente/paciente.component';
 import { ReporteComponent } from './pages/reporte/reporte.component';
 import { GuardService } from './_service/guard.service';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,7 @@ const routes: Routes = [
   { path: 'not-403', component: Not403Component },
   { path: 'not-404', component: Not404Component },
   { path: 'login', component: LoginComponent },
+  { path: 'perfil', component: PerfilComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'not-404', pathMatch: 'full' }
 ];
