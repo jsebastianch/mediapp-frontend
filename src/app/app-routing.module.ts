@@ -1,3 +1,5 @@
+import { SignosEdicionComponent } from './pages/signos/signos-edicion/signos-edicion.component';
+import { SignosComponent } from './pages/signos/signos.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BuscarComponent } from './pages/buscar/buscar.component';
@@ -43,6 +45,12 @@ const routes: Routes = [
     path: 'recuperar', component: RecuperarComponent, children: [
       { path: ':token', component: TokenComponent }
     ]
+  },
+  {
+    path: 'signos', component: SignosComponent, children: [
+      { path: 'nuevo', component: SignosEdicionComponent },
+      { path: 'edicion/:id', component: SignosEdicionComponent }
+    ], canActivate: [GuardService]
   },
   { path: 'medico', component: MedicoComponent, canActivate: [GuardService] },
   { path: 'consulta', component: ConsultaComponent, canActivate: [GuardService] },

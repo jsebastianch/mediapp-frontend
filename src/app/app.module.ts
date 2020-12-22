@@ -33,6 +33,8 @@ import { RecuperarComponent } from './pages/login/recuperar/recuperar.component'
 import { TokenComponent } from './pages/login/recuperar/token/token.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { SignosComponent } from './pages/signos/signos.component';
+import { SignosEdicionComponent } from './pages/signos/signos-edicion/signos-edicion.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem(environment.TOKEN_NAME);
@@ -60,7 +62,9 @@ export function tokenGetter() {
     Not404Component,
     RecuperarComponent,
     TokenComponent,
-    PerfilComponent
+    PerfilComponent,
+    SignosComponent,
+    SignosEdicionComponent
   ],
   //entryComponents:[ MedicoDialogoComponent ],
   imports: [
