@@ -1,3 +1,4 @@
+import { Paciente } from 'src/app/_model/paciente';
 import { Subject } from 'rxjs';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -12,6 +13,7 @@ export class SignosService extends GenericService<Signos> {
 
   private signosCambio = new Subject<Signos[]>();
   private mensajeCambio = new Subject<string>();
+  private pacienteCreado = new Subject<Paciente>();
 
   constructor(protected http: HttpClient) {
     super(
@@ -39,4 +41,13 @@ export class SignosService extends GenericService<Signos> {
   setMensajeCambio(mensaje: string){
     return this.mensajeCambio.next(mensaje);
   }
+
+  getPacienteCreado(){
+    return this.pacienteCreado.asObservable();
+  }
+
+  setPacienteCreado(paciente: Paciente){
+    this.pacienteCreado.next(paciente);
+  }
+
 }

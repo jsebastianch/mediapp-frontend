@@ -24,6 +24,11 @@ export class PacienteService extends GenericService<Paciente> {
     return this.http.get<any>(`${this.url}/pageable?page=${p}&size=${s}`);
   }
 
+  listarPorLocation(location: string){
+    //const id = location.replace(`${this.url}/`,'');
+    return this.http.get<Paciente>(location);
+  }
+
   /* ANTES DEL GENERIC SERVICE
 
   //private url = `${environment.HOST}/pacientes`;

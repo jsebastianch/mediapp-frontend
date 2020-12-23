@@ -1,3 +1,6 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PacienteDialogoComponent } from './../paciente-dialogo/paciente-dialogo.component';
+import { MatDialog } from '@angular/material/dialog';
 import { Signos } from './../../../_model/signos';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -25,6 +28,8 @@ export class SignosEdicionComponent implements OnInit {
   constructor(
     private pacienteService: PacienteService,
     private signosService: SignosService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute
   ) { }
@@ -39,6 +44,14 @@ export class SignosEdicionComponent implements OnInit {
       'ritmoRespiratorio': new FormControl('')
     });
     this.loadData();
+    this.signosService.getPacienteCreado().subscribe((data: any) => {
+      console.log(data);
+      this.pacientes.push(data);
+      this.form.controls.paciente.setValue(data);
+    });
+    this.signosService.getMensajeCambio().subscribe(data => {
+      this.snackBar.open(data, 'AVISO', { duration: 2000 });
+    });
   }
 
   loadData() {
@@ -56,7 +69,7 @@ export class SignosEdicionComponent implements OnInit {
 
   private initForm() {
     if (this.edicion) {
-      this.signosService.listarPorId(this.id).subscribe((data:any) => {
+      this.signosService.listarPorId(this.id).subscribe((data: any) => {
         this.form.controls.paciente.setValue(data.paciente);
         this.form.controls.fecha.setValue(data.fecha);
         this.form.controls.temperatura.setValue(data.temperatura);
@@ -84,7 +97,7 @@ export class SignosEdicionComponent implements OnInit {
   submit() {
     if (this.form.invalid) { return; }
     if (this.edicion) {
-      let  signos: Signos = this.form.getRawValue();
+      let signos: Signos = this.form.getRawValue();
       signos.signosId = this.id;
       this.signosService.modificar(signos).pipe(switchMap(() => {
         return this.signosService.listarPageable(0, 10);
@@ -104,6 +117,14 @@ export class SignosEdicionComponent implements OnInit {
     }
 
     this.router.navigate(['signos']);
+  }
+
+
+  abrirDialogo() {
+    this.dialog.open(PacienteDialogoComponent, {
+      width: '500px',
+      data: null
+    });
   }
 
 }

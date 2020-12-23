@@ -31,6 +31,11 @@ export class SignosComponent implements OnInit {
       this.cantidad = data.totalElements;
       this.dataSource = new MatTableDataSource(data.content);
       this.dataSource.sort = this.sort;
+      this.dataSource.filterPredicate = (data: Signos, filter: string) => {
+        let valor = data.paciente.nombres+data.paciente.apellidos;
+        return  valor.toLowerCase().includes(filter);
+      };
+     
     })
     this.signosService.getSignosCambio().subscribe(data => {
       this.crearTabla(data);
@@ -39,7 +44,6 @@ export class SignosComponent implements OnInit {
     this.signosService.getMensajeCambio().subscribe(data => {
       this.snackBar.open(data, 'AVISO', { duration: 2000 });
     });
-
   }
 
   filtrar(valor: string) {
@@ -61,6 +65,10 @@ export class SignosComponent implements OnInit {
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.dataSource.filterPredicate = (data: Signos, filter: string) => {
+      let valor = data.paciente.nombres+data.paciente.apellidos;
+      return  valor.toLowerCase().includes(filter);
+    };
   }
 
   mostrarMas(e: any) {
@@ -68,6 +76,10 @@ export class SignosComponent implements OnInit {
       this.cantidad = data.totalElements;
       this.dataSource = new MatTableDataSource(data.content);
       this.dataSource.sort = this.sort;
+      this.dataSource.filterPredicate = (data: Signos, filter: string) => {
+        let valor = data.paciente.nombres+data.paciente.apellidos;
+        return  valor.toLowerCase().includes(filter);
+      };
     });
   }
 

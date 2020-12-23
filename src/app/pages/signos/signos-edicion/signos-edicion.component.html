@@ -1,16 +1,25 @@
 <!-- No olvidar agregar ReactiveFormsModule en App.module.ts, util para trabajar con formularios-->
 <h1>Signos Vitales</h1>
 <form class="example-container" [formGroup]="form" #frmSignos="ngForm" (ngSubmit)="submit()">
-    <mat-form-field class="example-full-width">
-        <input type="text" placeholder="Seleccione un paciente" aria-label="Paciente" matInput
-            [formControl]="form.controls.paciente"
-            formControlName="paciente" [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="mostrarPaciente">
-            <mat-option *ngFor="let paciente of pacientesFiltrados$ | async" [value]="paciente">
-                {{paciente.nombres}} {{paciente.apellidos}}
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
+    <div fxLayout="row">
+        <div fxFlex="90">
+            <mat-form-field class="example-full-width">
+                <input type="text" placeholder="Seleccione un paciente" aria-label="Paciente" matInput
+                    [formControl]="form.controls.paciente"
+                    formControlName="paciente" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="mostrarPaciente">
+                    <mat-option *ngFor="let paciente of pacientesFiltrados$ | async" [value]="paciente">
+                        {{paciente.nombres}} {{paciente.apellidos}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+        <div fxFlex="10" [ngStyle]="{'padding-left':'5px'}">
+            <button mat-raised-button color="accent" type="button" (click)="abrirDialogo()">
+                Nuevo Paciente
+            </button>
+        </div>
+    </div>
 
     <mat-form-field>
         <input matInput [matDatepicker]="picker" required placeholder="Escoge una fecha" [max]="maxFecha"

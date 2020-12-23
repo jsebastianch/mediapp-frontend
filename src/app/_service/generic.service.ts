@@ -20,7 +20,7 @@ export class GenericService<T> {
   }
 
   registrar(t: T) {
-    return this.http.post(this.url, t);
+    return this.http.post(this.url, t, {observe: 'response'});
   }
 
   modificar(t: T) {
